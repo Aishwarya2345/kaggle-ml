@@ -1,7 +1,7 @@
 import pandas as pd
-from sklearn import preprocessing as pp
 import numpy as np
 from sklearn import metrics
+from sklearn import preprocessing as pp
 from sklearn.model_selection import train_test_split 
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import LabelEncoder
@@ -66,7 +66,7 @@ Maindf = pd.read_csv('D:/Trinity/Machine learning/Kaggle/tcd ml 2019-20 income p
     'Hair Color': ["#NA","0","Unknown"]
  } )
 
-#Maindf.to_csv('testcleaned-data.csv')
+Maindf.to_csv('testcleaned-data.csv')
 
 #reading the test data
 Testdf = pd.read_csv('D:/Trinity/Machine learning/Kaggle/tcd ml 2019-20 income prediction test (without labels).csv', na_values = {
@@ -103,36 +103,36 @@ Testdf['Hair Color'].fillna(method="ffill", inplace=True)
 #Testdf.to_csv('testfilled-testdata.csv')
 
 # #SCaling features - Age and Year of Record
-# age_scaler = pp.StandardScaler()
-# Maindf['Age'] = age_scaler.fit_transform(Maindf['Age'].values.reshape(-1, 1))
+age_scaler = pp.StandardScaler()
+Maindf['Age'] = age_scaler.fit_transform(Maindf['Age'].values.reshape(-1, 1))
 
-# yor_scaler = pp.StandardScaler()
-# Maindf['Year of Record'] = yor_scaler.fit_transform(Maindf['Year of Record'].values.reshape(-1, 1))
+yor_scaler = pp.StandardScaler()
+Maindf['Year of Record'] = yor_scaler.fit_transform(Maindf['Year of Record'].values.reshape(-1, 1))
 
 # Maindf.to_csv('testscaled-data.csv')
 
 #SCaling features - Age and Year of Record of test data
-# Testdf['Age'] = age_scaler.transform(Testdf['Age'].values.reshape(-1, 1))
-# Testdf['Year of Record'] = yor_scaler.transform(Testdf['Year of Record'].values.reshape(-1, 1))
+Testdf['Age'] = age_scaler.transform(Testdf['Age'].values.reshape(-1, 1))
+Testdf['Year of Record'] = yor_scaler.transform(Testdf['Year of Record'].values.reshape(-1, 1))
 
 # Testdf.to_csv('testscaled-testdata.csv')
 
 #Label encoding for feature Gender for training data
-# le_Gender = pp.LabelEncoder() 
-# Maindf['Gender'] = le_Gender.fit_transform(Maindf['Gender']) 
-# Maindf['Gender'].unique()
+le_Gender = pp.LabelEncoder() 
+Maindf['Gender'] = le_Gender.fit_transform(Maindf['Gender']) 
+Maindf['Gender'].unique()
 
 
 # #Label encoding for feature University Degree for training data
-# le_UniDeg = pp.LabelEncoder()
-# Maindf['University Degree'] = le_UniDeg.fit_transform(Maindf['University Degree']) 
-# Maindf['University Degree'].unique()
+le_UniDeg = pp.LabelEncoder()
+Maindf['University Degree'] = le_UniDeg.fit_transform(Maindf['University Degree']) 
+Maindf['University Degree'].unique()
 
 
 # #Label encoding for feature Hair Color for training data
-# le_HairClr = pp.LabelEncoder()
-# Maindf['Hair Color'] = le_HairClr.fit_transform(Maindf['Hair Color']) 
-# Maindf['Hair Color'].unique()
+le_HairClr = pp.LabelEncoder()
+Maindf['Hair Color'] = le_HairClr.fit_transform(Maindf['Hair Color']) 
+Maindf['Hair Color'].unique()
 
 
 #Removed the feature Income in EUR from data frame and equated to Y
@@ -148,9 +148,9 @@ professionReplaced = Maindf.groupby('Profession').count()
 professionReplaced = professionReplaced[professionReplaced['Age'] < 3].index
 Maindf['Profession'].replace(professionReplaced, 'other profession', inplace=True)
 
-# le_Prof = pp.LabelEncoder()
-# Maindf['Profession'] = le_Prof.fit_transform(Maindf['Profession']) 
-# Maindf['Profession'].unique()
+le_Prof = pp.LabelEncoder()
+Maindf['Profession'] = le_Prof.fit_transform(Maindf['Profession']) 
+Maindf['Profession'].unique()
 
 
 # #Label encoding for feature Country of training data
@@ -159,21 +159,21 @@ countryReplaced = Maindf.groupby('Country').count()
 countryReplaced = countryReplaced[countryReplaced['Age'] < 3].index
 Maindf['Country'].replace(countryReplaced, 'other', inplace=True)
 
-# le_Country = pp.LabelEncoder()
-# Maindf['Country'] = le_Country.fit_transform(Maindf['Country']) 
-# Maindf['Country'].unique()
+le_Country = pp.LabelEncoder()
+Maindf['Country'] = le_Country.fit_transform(Maindf['Country']) 
+Maindf['Country'].unique()
 
 # pd.DataFrame(Maindf).head().to_csv('testasdf.csv')
 
 
 # #Label encoding for feature Gender of test data
-# Testdf['Gender'] = le_Gender.transform(Testdf['Gender']) 
+Testdf['Gender'] = le_Gender.transform(Testdf['Gender']) 
 
 # #Label encoding for feature University Degree of test data
-# Testdf['University Degree'] = le_UniDeg.transform(Testdf['University Degree']) 
+Testdf['University Degree'] = le_UniDeg.transform(Testdf['University Degree']) 
 
 # # #Label encoding for feature Hair Color of test data
-# Testdf['Hair Color'] = le_HairClr.transform(Testdf['Hair Color']) 
+Testdf['Hair Color'] = le_HairClr.transform(Testdf['Hair Color']) 
 
 
 #Removed the feature Income in EUR from data frame and equated to Y
@@ -188,7 +188,7 @@ encodedProfession = list(set(professionList) - set(professionReplaced))
 testProfessionReplace = list(set(testProfessionList) - set(encodedProfession))
 Testdf['Profession'] = Testdf['Profession'].replace(testProfessionReplace, 'other profession')
 
-#Testdf['Profession'] = le_Prof.transform(Testdf['Profession']) 
+Testdf['Profession'] = le_Prof.transform(Testdf['Profession']) 
 
 #Label encoding for feature Country of test data
 testCountryList = Testdf['Country'].unique()
@@ -196,7 +196,7 @@ encodedCountries = list(set(countryList) - set(countryReplaced))
 testCountryReplace = list(set(testCountryList) - set(encodedCountries))
 Testdf['Country'] = Testdf['Country'].replace(testCountryReplace, 'other')
 
-#Testdf['Country'] = le_Country.transform(Testdf['Country']) 
+Testdf['Country'] = le_Country.transform(Testdf['Country']) 
 
 Maindf['Gender'],Testdf['Gender']=target_encode(Maindf['Gender'],Testdf['Gender'],Y)
 Maindf['University Degree'],Testdf['University Degree']=target_encode(Maindf['University Degree'],Testdf['University Degree'],Y)
@@ -218,7 +218,7 @@ print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_p
 
 Instance = Testdf['Instance']
 Instance = pd.DataFrame(Instance, columns=['Instance'])
-#del Testdf['Instance']
+
 
 y_pred1 = regressor.predict(Testdf)
 
